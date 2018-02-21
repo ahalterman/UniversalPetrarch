@@ -322,7 +322,7 @@ def do_coding(event_dict):
                 event_dict[key]['sents'][sent]['nouns'] = sentence.nouns
                 event_dict[key]['sents'][sent]['triplets'] = sentence.triplets
 
-                logger.debug("check events:")
+                logger.debug("check events of id:"+SentenceID)
                 for eventID,event in event_dict[key]['sents'][sent]['events'].items():
                     logger.debug("event:" + eventID)
                     logger.debug(event)
@@ -364,7 +364,7 @@ def do_coding(event_dict):
                         event_dict[key]['sents'][sent]['issues'] = event_issues
 
                 if PETRglobals.PauseBySentence:
-                    if len(input("Press Enter to continue...")) > 0:
+                    if len(raw_input("Press Enter to continue...")) > 0:
                         sys.exit()
 
                 prev_code = coded_events
@@ -409,7 +409,7 @@ def run(filepaths, out_file, s_parsed):
 def run_pipeline(data, out_file=None, config=None, write_output=True,
                  parsed=False):
     # this is called externally
-    utilities.init_logger('PETRARCH.log', 'INFO')
+    utilities.init_logger('PETRARCH.log',True)
     logger = logging.getLogger('petr_log')
     if config:
         print('Using user-specified config: {}'.format(config))
@@ -444,7 +444,7 @@ def run_pipeline(data, out_file=None, config=None, write_output=True,
         sys.exit()
     elif write_output and out_file:
         PETRwriter.write_events(updated_events, out_file)
-
+    
 
 if __name__ == '__main__':
     main()
